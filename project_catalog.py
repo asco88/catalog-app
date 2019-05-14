@@ -5,6 +5,11 @@ from database_setup import Base, Category, Item
 
 from flask import session as login_session
 from flask_oauthlib.client import OAuth
+import sys
+
+listenPort = 80
+if len(sys.argv) == 2:
+    listenPort = sys.argv[1]
 
 app = Flask(__name__)
 s1 = "927957155989-s6fprmbqothvla95u766aim8nk398qe1.apps.googleusercontent.com"
@@ -113,10 +118,16 @@ def categoriesJSON():
 @app.route('/category/')
 def showCategory():
     categories = session.query(Category).all()
+
+    if 'user_email' in login_session:
+        email = login_session['user_email']
+    else:
+        email = ''
+
     return render_template('categories.html',
                            categories=categories,
                            logged=isLogged(),
-                           email=login_session['user_email'])
+                           email=email)
 
 
 # show all items in chosen category in HTML
@@ -210,4 +221,4 @@ def newItem(cat_id):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=listenPort)
