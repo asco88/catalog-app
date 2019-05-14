@@ -119,15 +119,13 @@ def categoriesJSON():
 def showCategory():
     categories = session.query(Category).all()
 
-    if 'user_email' in login_session:
-        email = login_session['user_email']
-    else:
-        email = ''
+    if 'user_email' not in login_session:
+        login_session['user_email'] = ''
 
     return render_template('categories.html',
                            categories=categories,
                            logged=isLogged(),
-                           email=email)
+                           email=login_session['user_email'])
 
 
 # show all items in chosen category in HTML
