@@ -1,0 +1,35 @@
+<html>
+
+<head>
+	<link rel=stylesheet type=text/css href="{{url_for('static', filename='style.css')}}">
+</head>
+
+<body>
+	<div id="w">
+		<header id="title">
+			<h1>Catalog App</h1>
+			<div class="user">
+				{% if logged %}
+				logged ({{email}}) | <a href="{{url_for('logout')}}">Logout</a>
+				{% else %}
+				<a href="{{url_for('login')}}">Login</a>
+				{% endif %}
+			</div>
+			<div class="menu">
+					<a href="{{url_for('showCategory')}}">Home</a>
+			</div>
+		</header>
+		<div id="page">
+			<div class="titles">Authorization Error</div>
+
+			<span class="general-text">You are not authorized to view this page!</span>
+
+
+		</div>
+
+
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<html>
+
+<head>
+	<link rel=stylesheet type=text/css href="{{url_for('static', filename='style.css')}}">
+</head>
+
+<body>
+	<div id="w">
+		<header id="title">
+			<h1>Catalog App</h1>
+			<div class="user">
+				{% if logged %}
+				logged ({{email}}) | <a href="{{url_for('logout')}}">Logout</a>
+				{% else %}
+				<a href="{{url_for('login')}}">Login</a>
+				{% endif %}
+			</div>
+			<div class="menu">
+					<a href="{{url_for('showCategory')}}">Home</a>
+			</div>
+		</header>
+		<div id="page">
+			<div id="cats">
+				<div class="titles">Categories</div>
+				{% for cat in categories %}
+				<div class="cat_row">
+					<a href="/category/{{cat.id}}/items">{{cat.name}}</a>
+				</div>
+				{% endfor %}
+			</div>
+			<div id="items">
+				<div class="titles">Items</div>
+				{% if logged %}
+					<div class="button-red"><a href="{{url_for('newItem', cat_id = cat.id)}}">Create New Item</a></div>
+				{% endif %}
+				{% for item in items %}
+				<div class="item_row">
+					<a href="/item/{{item.id}}">{{item.title}}</a> | created by: {{item.creator_email}}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

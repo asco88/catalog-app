@@ -1,0 +1,63 @@
+<html>
+		<head>
+				<link rel=stylesheet type=text/css href="{{url_for('static', filename='style.css')}}">
+		</head>
+			<body>
+			  <div id="w">
+			    <header id="title">
+			      <h1>Catalog App</h1>
+						<div class="user">
+							{% if logged %}
+									logged ({{email}}) | <a href="{{url_for('logout')}}">Logout</a>
+							{% else %}
+									<a href="{{url_for('login')}}">Login</a>
+							{% endif %}
+						</div>
+						<div class="menu">
+								<a href="{{url_for('showCategory')}}">Home</a>
+						</div>
+			    </header>
+			    <div id="page">
+
+						<div class="titles">New Item</div>
+
+						<form method="post" action="{{url_for('newItem', cat_id = cat.id)}}" id="form" class="validate">
+						  <div class="form-field">
+						    <label for="full-name">Title</label>
+						    <input type="text" name="title" id="full-name" required />
+						  </div>
+						  <div class="form-field">
+						    <label for="email-input">Description</label>
+						    <input type="text" name="description" id="email-input" required />
+						  </div>
+							<div class="form-field">
+								<label for="email-input">Category</label>
+								<input type="text" name="cat_name" id="email-input" value="{{cat.name}}" disabled />
+								<input type="hidden" name="cat_id" value="{{cat.id}}">
+							</div>
+
+							<!-- <div class="form-field">
+								<label for="email-input">Category</label>
+
+								<select name="cat_id" form="form">
+
+									{% for cat in categories %}
+
+								  <option value="{{cat.id}}">{{cat.name}}</option>
+
+									{% endfor %}
+
+								</select>
+
+							</div> -->
+
+						  <div class="form-field">
+						    <label for=""></label>
+						    <input type="submit" value="Create" />
+						  </div>
+						</form>
+
+			    </div>
+			  </div>
+			</body>
+</html>
